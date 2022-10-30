@@ -43,11 +43,12 @@ The preprocessing script will build and store an appropriate dataset in that can
 
 ### AWS SageMaker Deployment
 
-There are two ways we can train our ViT model. The first way is to use the HuggingFace API with the accompanyting HuggingFace trainer script. However, AWS currently does not support containers to deploy HuggingFace models for image classification yet. Therefore, we will instead have to use PyTorch to deploy this model. This can be done with the provided Pytorch Lightning training script.
+There are two ways we can train our ViT model. The first way is to use the HuggingFace API with the accompanyting HuggingFace trainer script. However, AWS currently does not support containers to deploy HuggingFace models for image classification yet. Therefore, we will instead have to use PyTorch to deploy this model. This can be done with the provided Pytorch Lightning training script. You will have to contact AWS support if you want to use a GPU instance to train (highly recommended). 
 
 After we deployed our model to a real-time inference endpoint, we can use AWS Lambda to trigger an event whenever an image is uploaded to S3 to pass that image through to our endpoint. However, there seems to be some compatibility issues with AWS regarding creating an inference endpoint from HuggingFace models for image classification. In order to clear up this issue we would need to dig deeper into how to pass an image into this type of model. We have to move to a different platform to deploy our model. 
 
 ## Heroku Deployment using Flask with Local Training
+
 
 To deploy our model on a open-source platform (Heroku, Streamlit, etc.) we first need to train our model in a local environment to be able to deploy the model. The neural network architechture is defined in the block below: 
 
@@ -56,6 +57,8 @@ To deploy our model on a open-source platform (Heroku, Streamlit, etc.) we first
 And the data was passed through with the following code block: 
 
 ![NNpass](https://i.imgur.com/oGbwvk7.png)
+
+After training the data, it is a good idea to save both the model and the model state dictionary. We will use the model state dictionary later when we load the model in the Flask app. The scripts to deploy the flask app can be found in the apporpriate directory. 
 
 
 
