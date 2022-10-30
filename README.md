@@ -5,3 +5,12 @@ Salmon is a very popular fish known for its great nutritional qualities. In natu
 
 ## ViT Neural Network Architechture 
 ![ViT Architechture](https://production-media.paperswithcode.com/methods/Screen_Shot_2021-01-26_at_9.43.31_PM_uI4jjMq.png)
+The Vision Transformer is a model that uses a Transformer-like approach for patches of an image. An image is split into fixed size patches, each of them linearly embedded, position embeddings are added, and the resulting vectors are to a typical Transformer encoder. For classification to take place, a an extra learnable "classification token" is added. ViT has been demonstrated to attain excellent results compared to state-of-the-art convolutional networks while requiring substantially less computational resources. 
+
+# Repository structure
+
+`AWS deployment` has the notebooks and scripts used to preprocess, train model, and deploy on AWS sagemaker
+
+`Heroku Flask` has the python scripts to deploy model to Heroku using the model state dictionary 
+
+`CPU-VIT.ipynb` the notebook to train model using pytorch locally and extract the state dictionary
