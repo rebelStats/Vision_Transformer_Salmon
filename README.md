@@ -5,6 +5,7 @@ Salmon is a very popular fish known for its great nutritional qualities. In natu
 
 ## ViT Neural Network Architechture 
 ![ViT Architechture](https://production-media.paperswithcode.com/methods/Screen_Shot_2021-01-26_at_9.43.31_PM_uI4jjMq.png)
+
 The Vision Transformer is a model that uses a Transformer-like approach for patches of an image. An image is split into fixed size patches, each of them linearly embedded, position embeddings are added, and the resulting vectors are to a typical Transformer encoder. For classification to take place, a an extra learnable "classification token" is added. ViT has been demonstrated to attain excellent results compared to state-of-the-art convolutional networks while requiring substantially less computational resources. 
 
 ## Repository structure
@@ -21,7 +22,7 @@ The folder for AWS deployment contains a notebook for image preprocessing and mo
 
 ### Image Preprocessing
 
-Before we pass the data in to fine-tune our transformer model, we need to process it in SageMaker and store it in S3 first. For the preprocessing script to work, you will need to set up an S3 bucket in the following way (as well as adjust the naming in the notebook):
+Before we pass the data in to fine-tune our transformer model, we need to process it in SageMaker and store it in S3 first. For the preprocessing script to work, you will need to set up an S3 bucket in the following way (as well as adjust the names in the notebook):
 ```
 bucket    
 │
@@ -31,12 +32,32 @@ bucket
    │
    └───class 1
       │   img1.img
-      │   fimg2.jpg
+      │   img2.jpg
       │  
       │
       └───class 2
       │   img1.img
       │   img2.jpg
 ```
-The preprocessing script will build an appropriate dataset that can be used by the HuggingFace module when training. 
+The preprocessing script will build and store an appropriate dataset in that can be used by the HuggingFace module when training.
+
+### AWS SageMaker Deployment
+
+There are two ways we can train our ViT model. The first way is to use the HuggingFace API with the accompanyting HuggingFace trainer script. However, AWS currently does not support containers to deploy HuggingFace models for image classification yet. Therefore, we will instead have to use PyTorch to deploy this model. This can be done with the provided Pytorch Lightning training script.
+
+After we deployed our model to a real-time inference endpoint, we can use AWS Lambda to trigger an event whenever an image is uploaded to S3 to pass that image through to our endpoint. However, there seems to be some compatibility issues with AWS regarding creating an inference endpoint from HuggingFace models for image classification. In order to clear up this issue we would need to dig deeper into how to pass an image into this type of model. We have to move to a different platform to deploy our model. 
+
+## Heroku Deployment using Flask with Local Training
+
+To deploy our model on a open-source platform (Heroku, Streamlit, etc.) we first need to train our model in a local environment to be able to deploy the model. The neural network architechture is defined in the block below: 
+
+![NNarchitechture](https://i.imgur.com/cU3xzZM.png)
+
+And the data was passed through with the following code block: 
+
+![NNpass](https://i.imgur.com/oGbwvk7.png)
+
+
+
+
 
