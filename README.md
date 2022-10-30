@@ -31,13 +31,14 @@ bucket
    │   
    │
    └───class 1
-      │   img1.img
+      │   img1.jpg
       │   img2.jpg
-      │  
+      │     ......
       │
       └───class 2
-      │   img1.img
+      │   img1.jpg
       │   img2.jpg
+      |      ......
 ```
 The preprocessing script will build and store an appropriate dataset in that can be used by the HuggingFace module when training.
 
@@ -59,8 +60,4 @@ And the data was passed through with the following code block:
 ![NNpass](https://i.imgur.com/oGbwvk7.png)
 
 After training the data, it is a good idea to save both the model and the model state dictionary. We will use the model state dictionary later when we load the model in the Flask app. The scripts to deploy the flask app can be found in the apporpriate directory. 
-
-
-
-
 
