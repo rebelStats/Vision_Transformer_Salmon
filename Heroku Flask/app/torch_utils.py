@@ -3,7 +3,7 @@
 """
 Created on Sat Oct  1 02:00:56 2022
 
-@author: Nathan
+@author: Nathan Kardos
 """
 
 import io
