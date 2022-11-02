@@ -3,7 +3,7 @@
 """
 Created on Fri Sep 23 22:06:46 2022
 
-@author: user
+@author: Nathan Kardos
 """
 
 from flask import Flask, request, jsonify
